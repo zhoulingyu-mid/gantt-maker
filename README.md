@@ -7,3 +7,5 @@ npm create vite@latest
 update tsconfig.app.json (for frontend project) and vite.config.ts
 3. devcontainer
 add .devcontainer/devcontainer.json
+4. github action to publish as ghpage
+config on github also need update
