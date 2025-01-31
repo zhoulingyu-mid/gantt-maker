@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import GanttChart from 'src/components/GanttChart/GanttChart';
+import { useState } from 'react';
+
+
+const SAMPLE_GANNT = `
+task "design" costs 2
+task "another deadline" spans 1-3
+task "backend" depends on "design" costs 3
+task "frontend" depends on "design" costs 5
+task "integration test" depends on "backend" "frontend" costs 5
+
+participant "worker1": "design" "backend" "integration test"
+participant "worker2": "another deadline" "frontend"
+`;
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [gantt, setGannt] = useState<string>(SAMPLE_GANNT);
 
   return (
-    <>
+    <div>
+      {/* Top Bar */}
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Gantt Chart</h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      {/* Main Section */}
+      <div className='d-flex'>
+        {/* Left Panel */}
+        <div>
+          <textarea
+            style={{ width: '100%', height: '100%'}}
+            value={gantt}
+            onChange={(e)=>setGannt(e.target.value)}
+          />
+        </div>
+
+        {/* Right Panel */}
+        <div>
+          <GanttChart gantt={gantt}/>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
