@@ -4,7 +4,6 @@ import {ParseTreeListener} from "antlr4";
 
 
 import { ParseContext } from "./GanttLangParser.js";
-import { ExprContext } from "./GanttLangParser.js";
 import { TaskEntryContext } from "./GanttLangParser.js";
 import { TaskNameContext } from "./GanttLangParser.js";
 import { DependencyClauseContext } from "./GanttLangParser.js";
@@ -29,16 +28,6 @@ export default class GanttLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitParse?: (ctx: ParseContext) => void;
-	/**
-	 * Enter a parse tree produced by `GanttLangParser.expr`.
-	 * @param ctx the parse tree
-	 */
-	enterExpr?: (ctx: ExprContext) => void;
-	/**
-	 * Exit a parse tree produced by `GanttLangParser.expr`.
-	 * @param ctx the parse tree
-	 */
-	exitExpr?: (ctx: ExprContext) => void;
 	/**
 	 * Enter a parse tree produced by `GanttLangParser.taskEntry`.
 	 * @param ctx the parse tree

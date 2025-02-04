@@ -4,7 +4,6 @@ import {ParseTreeVisitor} from 'antlr4';
 
 
 import { ParseContext } from "./GanttLangParser.js";
-import { ExprContext } from "./GanttLangParser.js";
 import { TaskEntryContext } from "./GanttLangParser.js";
 import { TaskNameContext } from "./GanttLangParser.js";
 import { DependencyClauseContext } from "./GanttLangParser.js";
@@ -28,12 +27,6 @@ export default class GanttLangVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitParse?: (ctx: ParseContext) => Result;
-	/**
-	 * Visit a parse tree produced by `GanttLangParser.expr`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitExpr?: (ctx: ExprContext) => Result;
 	/**
 	 * Visit a parse tree produced by `GanttLangParser.taskEntry`.
 	 * @param ctx the parse tree

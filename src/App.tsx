@@ -1,10 +1,14 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import GanttChart from 'src/components/GanttChart/GanttChart';
 import { useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import CodeMirror from "@uiw/react-codemirror";
+import { githubDark } from "@uiw/codemirror-theme-github";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import GanttChart from 'src/components/GanttChart/GanttChart';
+import './App.css';
+import { GanttLangSupport } from 'src/GanttLangLezer/GanttLangLezerLanguage';
 
-const SAMPLE_GANNT = `
+const SAMPLE_GANTT = `
 task "design" costs 2
 task "another deadline" spans 1-3
 task "backend" depends on "design" costs 3
@@ -17,32 +21,33 @@ participant "worker2": "another deadline" "frontend"
 
 
 function App() {
-  const [gantt, setGannt] = useState<string>(SAMPLE_GANNT);
+  const [gantt, setGantt] = useState<string>(SAMPLE_GANTT);
 
   return (
-    <div>
+    <Container fluid>
       {/* Top Bar */}
-      <div>
+      <Row>
         <h1>Gantt Chart</h1>
-      </div>
+      </Row>
 
       {/* Main Section */}
-      <div className='d-flex'>
+      <Row className='main'>
         {/* Left Panel */}
-        <div>
-          <textarea
-            style={{ width: '100%', height: '100%'}}
+        <Col md={4}>
+          <CodeMirror
             value={gantt}
-            onChange={(e)=>setGannt(e.target.value)}
+            onChange={(value)=>setGantt(value)}
+            extensions={[GanttLangSupport()]}
+            theme={githubDark}
           />
-        </div>
+        </Col>
 
         {/* Right Panel */}
-        <div>
-          <GanttChart gantt={gantt}/>
-        </div>
-      </div>
-    </div>
+        <Col md={8}>
+          <GanttChart gantt={gantt} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

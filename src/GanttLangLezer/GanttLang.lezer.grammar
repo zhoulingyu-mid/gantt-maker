@@ -1,0 +1,48 @@
+@top Program { TaskStatement+ ParticipantStatement+ }
+
+@tokens {
+  TaskKW            { "task" }
+  CostsKW           { "costs" }
+  SpansKW           { "spans" }
+  DependsOnKW       { "depends on" }
+  ParticipantKW     { "participant" }
+  DashKW            { "-" }
+  ColonKW           { ":" }
+
+  Integer            { $[0-9]+ }
+  String            { "\"" !["\r\n]* "\"" }
+  Comment           { "#" ![\r\n]* }
+  Whitespace        { $[ \t\r\n]+ }
+}
+
+@skip { Whitespace | Comment }
+
+// Task statement
+TaskStatement {
+  TaskKW TaskName (DependencyClause)? (CostClause | SpanClause)?
+}
+
+TaskName {
+  String
+}
+
+DependencyClause {
+  DependsOnKW TaskName+
+}
+
+CostClause {
+  CostsKW Integer
+}
+
+SpanClause {
+  SpansKW Integer DashKW Integer
+}
+
+// Participant statement
+ParticipantStatement {
+  ParticipantKW ParticipantName ColonKW TaskName+
+}
+
+ParticipantName {
+  String
+}

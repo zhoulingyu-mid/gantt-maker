@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import {extractGanntObjects, scheduleTasks} from 'src/GanttLang/index.ts';
+import {extractGanntObjects, scheduleTasks} from 'src/GanttLangAntlr';
 
 const MARGIN = {
   top: 50,
@@ -46,7 +46,6 @@ function GanttChart({gantt}: GanttChartProps): JSX.Element {
         console.log(e);
         tmpScheduledTasks = new Map();
       }
-      console.log({tmpParticipants, tmpScheduledTasks})
       const participants = tmpParticipants;
       const scheduledTasks = tmpScheduledTasks;
 
@@ -55,8 +54,6 @@ function GanttChart({gantt}: GanttChartProps): JSX.Element {
       const participantCount = participants.size;
       const width = (dayMax - dayMin + 1) * DAY_WIDTH + MARGIN.left + MARGIN.right;
       const height = participantCount * ROW_HEIGHT + MARGIN.top + MARGIN.bottom;
-
-      console.log({dayMin, dayMax, days: [...scheduledTasks.values()].map(task=>task.start!)});
 
       const svg = d3.select(svgRef.current)
         .style('width', `${width}px`)
