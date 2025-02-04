@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Generated from GanttLang.g4 by ANTLR 4.13.2
 // noinspection ES6UnusedImports,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 
